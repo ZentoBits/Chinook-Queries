@@ -1,5 +1,8 @@
 1. Provide a query showing Customers (just their full names, customer ID and country) who are not in the US.
-
+  SELECT Customer.FirstName || ' ' || Customer.LastName
+  AS 'Name', Customer.CustomerId, Customer.Country
+  FROM Customer
+  WHERE Customer.Country != 'USA'
 
 2. Provide a query only showing the Customers from Brazil.
 
