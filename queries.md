@@ -182,24 +182,60 @@
 
 22. Provide a query that shows the # of customers assigned to each sales agent.
   ```
+  SELECT COUNT(Customer.CustomerId) AS 'Customers Assigned', Employee.FirstName || ' ' || Employee.LastName AS 'Name'
+  FROM Employee
+  JOIN Customer ON Employee.EmployeeId = Customer.SupportRepId
+  GROUP BY Employee.EmployeeId
   ```
 
 23. Provide a query that shows the total sales per country. Which country's customers spent the most?
   ```
+  SELECT Customer.Country, SUM(Invoice.Total) AS 'Total Sales'
+  FROM Customer
+  JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId
+  GROUP BY Customer.Country
   ```
 
 24. Provide a query that shows the most purchased track of 2013.
   ```
+  SELECT Track.Name, SUM(Invoice.Total) AS 'Total Sales'
+  FROM Track
+  JOIN InvoiceLine ON Track.TrackId = InvoiceLine.TrackId
+  JOIN Invoice ON InvoiceLine.InvoiceId = Invoice.InvoiceId
+  WHERE Invoice.InvoiceDate LIKE '%2013%'
+  GROUP BY Track.TrackId
+  ORDER BY TOTAL DESC LIMIT 1
   ```
 
 25. Provide a query that shows the top 5 most purchased tracks over all.
   ```
+  SELECT Track.Name, SUM(Invoice.Total) AS 'Total Sales'
+  FROM Track
+  JOIN InvoiceLine ON Track.TrackId = InvoiceLine.TrackId
+  JOIN Invoice ON InvoiceLine.InvoiceId = Invoice.InvoiceId
+  GROUP BY Track.TrackId
+  ORDER BY TOTAL DESC LIMIT 5
   ```
 
 26. Provide a query that shows the top 3 best selling artists.
   ```
+  SELECT Artist.Name, SUM(Invoice.Total) AS 'Total'
+  FROM Artist
+  JOIN Album ON Artist.ArtistId = Album.ArtistId
+  JOIN Track ON Album.AlbumId = Track.AlbumId
+  JOIN InvoiceLine ON Track.TrackId = InvoiceLine.TrackId
+  JOIN Invoice ON InvoiceLine.InvoiceId = Invoice.InvoiceId
+  GROUP BY Artist.Name
+  ORDER BY TOTAL DESC LIMIT 3
   ```
 
 27. Provide a query that shows the most purchased Media Type.
   ```
+  SELECT MediaType.Name, SUM(Invoice.Total) AS 'Total'
+  FROM MediaType
+  JOIN Track ON MediaType.MediaTypeId = Track.MediaTypeId
+  JOIN InvoiceLine ON Track.TrackId = InvoiceLine.TrackId
+  JOIN Invoice ON InvoiceLine.InvoiceId = Invoice.InvoiceId
+  GROUP BY MediaType.Name
+  ORDER BY TOTAL DESC LIMIT 1
   ```
