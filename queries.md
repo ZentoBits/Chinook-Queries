@@ -84,14 +84,25 @@
 
 11. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
   ```
+  SELECT InvoiceLine.InvoiceId, COUNT(*) 'Line Items / Invoice'
+  FROM InvoiceLine
+  GROUP BY InvoiceLine.InvoiceId
   ```
 
 12. Provide a query that includes the track name with each invoice line item.
   ```
+  SELECT Track.Name, InvoiceLine.InvoiceLineId
+  FROM InvoiceLine
+  JOIN Track ON InvoiceLine.TrackId = Track.TrackId
   ```
 
 13. Provide a query that includes the purchased track name AND artist name with each invoice line item.
   ```
+  SELECT Track.Name, Artist.Name, InvoiceLine.InvoiceLineId
+  FROM InvoiceLine
+  JOIN Track ON InvoiceLine.TrackId = Track.TrackId
+  JOIN Album ON Track.AlbumId = Album.AlbumId
+  JOIN Artist ON Album.ArtistId = Artist.ArtistId
   ```
 
 14. Provide a query that shows the # of invoices per country. HINT: GROUP BY
