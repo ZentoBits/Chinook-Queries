@@ -61,10 +61,25 @@
 
 9. How many Invoices were there in 2009 and 2011? What are the respective total sales for each of those years?
   ```
+  SELECT COUNT(*) AS 'Total Invoices'
+  FROM Invoice
+  WHERE Invoice.InvoiceDate
+  LIKE '%2011%' OR Invoice.InvoiceDate LIKE '%2009%'
+
+  SELECT COUNT(Invoice.Total) AS '2009 Total'
+  FROM Invoice
+  WHERE Invoice.InvoiceDate LIKE '%2009%'
+
+  SELECT COUNT(Invoice.Total) AS '2011 Total'
+  FROM Invoice
+  WHERE Invoice.InvoiceDate LIKE '%2011%'
   ```
 
 10. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
   ```
+  SELECT COUNT(*) AS 'Line Items ID 37'
+  FROM InvoiceLine
+  WHERE InvoiceLine.InvoiceId = '37'
   ```
 
 11. Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
