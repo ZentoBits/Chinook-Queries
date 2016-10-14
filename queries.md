@@ -132,22 +132,52 @@
 
 17. Provide a query that shows all Invoices but includes the # of invoice line items.
   ```
+  SELECT *, COUNT(InvoiceLine.InvoiceLineId) AS 'Invoice Lines'
+  FROM Invoice
+  JOIN InvoiceLine ON Invoice.InvoiceId = InvoiceLine.InvoiceId
+  GROUP BY Invoice.InvoiceId
   ```
 
 18. Provide a query that shows total sales made by each sales agent.
   ```
+  SELECT Employee.FirstName, SUM(Invoice.Total) AS 'Total Sales'
+  FROM Employee
+  JOIN Customer ON Employee.EmployeeId = Customer.SupportRepId
+  JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId
+  WHERE Employee.Title = 'Sales Support Agent'
+  GROUP BY Employee.EmployeeId
   ```
 
 19. Which sales agent made the most in sales in 2009?
   ```
+  SELECT Employee.FirstName, SUM(Invoice.Total) AS 'Total'
+  FROM Employee
+  JOIN Customer ON Employee.EmployeeId = Customer.SupportRepId
+  JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId
+  WHERE Invoice.InvoiceDate LIKE '%2009%'
+  GROUP BY Employee.EmployeeId
+  ORDER BY TOTAL DESC LIMIT 1
   ```
 
 20. Which sales agent made the most in sales in 2010?
   ```
+  SELECT Employee.FirstName, SUM(Invoice.Total) AS 'Total'
+  FROM Employee
+  JOIN Customer ON Employee.EmployeeId = Customer.SupportRepId
+  JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId
+  WHERE Invoice.InvoiceDate LIKE '%2010%'
+  GROUP BY Employee.EmployeeId
+  ORDER BY TOTAL DESC LIMIT 1
   ```
 
 21. Which sales agent made the most in sales over all?
   ```
+  SELECT Employee.FirstName, SUM(Invoice.Total) AS 'Total'
+  FROM Employee
+  JOIN Customer ON Employee.EmployeeId = Customer.SupportRepId
+  JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId
+  GROUP BY Employee.EmployeeId
+  ORDER BY TOTAL DESC LIMIT 1
   ```
 
 22. Provide a query that shows the # of customers assigned to each sales agent.
