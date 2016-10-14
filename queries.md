@@ -107,14 +107,27 @@
 
 14. Provide a query that shows the # of invoices per country. HINT: GROUP BY
   ```
+  SELECT Customer.Country, COUNT(Invoice.InvoiceId)
+  FROM Customer
+  JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId
+  GROUP BY Customer.Country
   ```
 
 15. Provide a query that shows the total number of tracks in each playlist. The Playlist name should be include on the resultant table.
   ```
+  SELECT COUNT(*) AS 'Total Tracks', Playlist.Name
+  FROM PlaylistTrack
+  JOIN Playlist ON PlaylistTrack.PlaylistId = Playlist.PlaylistId
+  GROUP BY PlaylistTrack.PlaylistId
   ```
 
 16. Provide a query that shows all the Tracks, but displays no IDs. The resultant table should include the Album name, Media type and Genre.
   ```
+  SELECT Track.Name, Album.Title, MediaType.Name, Genre.Name
+  FROM Track
+  JOIN Album ON Track.AlbumId = Album.AlbumId
+  JOIN MediaType ON Track.MediaTypeId = MediaType.MediaTypeId
+  JOIN Genre ON Track.GenreId = Genre.GenreId
   ```
 
 17. Provide a query that shows all Invoices but includes the # of invoice line items.
